@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -31,6 +32,9 @@ public class Aluno implements Serializable {
     @Column(name = "matricula", unique = true)
     private String matricula;
     
+    @Column(name = "nascimento")
+    private Date nascimento;
+    
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos = new ArrayList<>();
     
@@ -48,6 +52,13 @@ public class Aluno implements Serializable {
         this.nome = nome;
         this.email = email;
         this.matricula = matricula;
+    }
+    
+    public Aluno(String nome, String email, String matricula, Date nascimento) {
+        this.nome = nome;
+        this.email = email;
+        this.matricula = matricula;
+        this.nascimento = nascimento;
     }
     
     // Métodos auxiliares para manter sincronização bidirecional
@@ -102,6 +113,14 @@ public class Aluno implements Serializable {
     
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+    
+    public Date getNascimento() {
+        return nascimento;
+    }
+    
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
     }
     
     public List<Endereco> getEnderecos() {
